@@ -15,6 +15,10 @@ type Handler struct {
 	redirect *services.RedirectService
 }
 
+func NewHandler(shortener *services.ShortenerService, redirect *services.RedirectService) *Handler {
+	return &Handler{ shortener: shortener, redirect: redirect}
+}
+
 func (h *Handler) ShortenURL(w http.ResponseWriter, r *http.Request) {
 	var req models.ShortenRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
